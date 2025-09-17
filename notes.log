@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.9.14)  17 SEP 2025 02:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.9.14)  17 SEP 2025 02:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -343,7 +343,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [6]
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 261--267
+Underfull \hbox (badness 10000) in paragraph at lines 265--271
 
  []
 
@@ -352,12 +352,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 261--267
 [8]
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 350--352
+Underfull \hbox (badness 10000) in paragraph at lines 354--356
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 350--352
+Underfull \hbox (badness 10000) in paragraph at lines 354--356
 
  []
 
@@ -366,7 +366,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 350--352
 [10{c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 
 [11]
-Overfull \hbox (11.26045pt too wide) detected at line 502
+Overfull \hbox (11.26045pt too wide) detected at line 506
 \OT1/cmr/m/n/12 201  []  111 = 90\OML/cmm/m/it/12 ;  \OT1/cmr/m/n/12 111  []  90 = 21\OML/cmm/m/it/12 ;  \OT1/cmr/m/n/12 90  []  21 = 6\OML/cmm/m/it/12 ;  \OT1/cmr/m/n/12 21  []  6 = 3\OML/cmm/m/it/12 ;  \OT1/cmr/m/n/12 6  []  3 = 0
  []
 
@@ -383,14 +383,14 @@ Overfull \hbox (11.26045pt too wide) detected at line 502
 [16]
 
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 738--741
+Underfull \hbox (badness 10000) in paragraph at lines 742--745
 
  []
 
 
 
 [18]
-Overfull \hbox (26.03409pt too wide) in paragraph at lines 812--815
+Overfull \hbox (26.03409pt too wide) in paragraph at lines 816--819
 $[]$ 
  []
 
@@ -403,12 +403,12 @@ $[]$
 [21]
 
 [22]
-Underfull \hbox (badness 10000) in paragraph at lines 904--906
+Underfull \hbox (badness 10000) in paragraph at lines 908--910
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 904--906
+Underfull \hbox (badness 10000) in paragraph at lines 908--910
 
  []
 
@@ -435,7 +435,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  75i,8n,79p,473b,587s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on notes.pdf (25 pages, 201059 bytes).
+Output written on notes.pdf (25 pages, 201244 bytes).
 PDF statistics:
  372 PDF objects out of 1000 (max. 8388607)
  309 compressed objects within 4 object streams

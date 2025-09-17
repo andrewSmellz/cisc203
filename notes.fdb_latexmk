@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1758091259.07116 "c:/Users/andre/Documents/cisc203/notes.tex" "notes.pdf" "notes" 1758091259.80696 0
-  "c:/Users/andre/Documents/cisc203/notes.tex" 1758091258.52683 30900 93b12cfa5753cce116ad60247e7f10df ""
+["pdflatex"] 1758091890.68465 "c:/Users/andre/Documents/cisc203/notes.tex" "notes.pdf" "notes" 1758091891.42536 0
+  "c:/Users/andre/Documents/cisc203/notes.tex" 1758091890.13 31156 d8021f7d78ea37f0619c8dd49f295533 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1757890477.32313 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1757890948.36487 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1757890742.27888 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -92,9 +92,9 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1757892903 5574045 1b31948b6a3dd60443be9edab2773cb5 ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1757893075 3605801 ec5bd5d0a0bcb1c0cae5385be092eeec ""
   "c:/texlive/2025/texmf.cnf" 1757892890.4578 713 baa45e065482d44c4cd81b98ef72c63b ""
-  "notes.aux" 1758091259.72485 3073 71448a96e2fc60090a465bc06aff6237 "pdflatex"
-  "notes.out" 1758091259.72585 2405 8af4b4eed1d14194f187109ffc222894 "pdflatex"
-  "notes.toc" 1758091259.72685 1069 1eb851feb71aa4a30aff9144907be655 "pdflatex"
+  "notes.aux" 1758091891.34575 3073 71448a96e2fc60090a465bc06aff6237 "pdflatex"
+  "notes.out" 1758091891.34725 2405 8af4b4eed1d14194f187109ffc222894 "pdflatex"
+  "notes.toc" 1758091891.34776 1069 1eb851feb71aa4a30aff9144907be655 "pdflatex"
   (generated)
   "notes.aux"
   "notes.log"
