@@ -3,7 +3,10 @@
 \usepackage[colorlinks=true,linkcolor=blue]{hyperref}
 \usepackage{amsmath, amssymb}
 \usepackage{enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
 
+\DeclareMathOperator{\lcm}{lcm}
 
 \title{CISC203 notes\\Discrete Structures II}
 \author{Andrew Aquino}
@@ -19,7 +22,9 @@ To whom this may concern, these are some notes for CISC203,
 a course I took in the fall of 2025. 
 I am writing these notes for my own benefit, 
 and I make no claims about their accuracy or completeness. 
-Use at your own risk.\\
+Use at your own risk.
+
+ps on 09/16/2025, I was intoxicated while writing these notes :3
 
 Check me out at \url{https://github.com/andrewSmellz}
 
@@ -49,7 +54,7 @@ a = qb + r \quad \text{where} \quad 0 \leq r < b
 \]
 
 \noindent This expresses $a$ as a multiple of $b$ plus a remainder $r$.
-Additionally, we call $d$ the divisor, $a$ the dividend, $q$ the quotient, and $r$ the remainder.
+Additionally, we call $b$ the divisor, $a$ the dividend, $q$ the quotient, and $r$ the remainder.
 
 \vspace{5mm}
 
@@ -62,7 +67,7 @@ Then we define the division and modulus operations as follows:
 q = a \div b, \quad r = a \bmod b
 \]
 
-where $q$ and $r$ are the unique pair of numbers (by Theorem \hyperref[thm:division]{2}) where $a = qb + r$ and $0 \leq r < b$.
+where $q$ and $r$ are the unique pair of integers (by Theorem \hyperref[thm:division]{2}) for which $a = qb + r$ and $0 \leq r < b$.
 
 \vspace{5mm}
 
@@ -86,7 +91,7 @@ The set of all integers congruent to an integer $a$ modulo $n$ is called the con
 \\Let $a,b,n \in \mathbb{Z}$, with $n > 0$. 
 Then 
 \[
-a \equiv b \pmod{n} \iff a \bmod n = b \bmod n
+a \equiv b \pmod{n} \iff a \bmod n = b \bmod n.
 \]
 
 \vspace{5mm}
@@ -95,7 +100,7 @@ a \equiv b \pmod{n} \iff a \bmod n = b \bmod n
 \label{ex:modexample2}
 \[
 9 \equiv 17 \pmod{4} \text{ is true, so we also have } 
-9\bmod 4 = 1 \text{ and } 17 \bmod 4 = 1
+9\bmod 4 = 1 \text{ and } 17 \bmod 4 = 1.
 \]
 
 \vspace{15mm}
@@ -111,18 +116,18 @@ a \equiv b \pmod{n} \iff a \bmod n = b \bmod n
 \noindent\textbf{Example 9:}
 \label{ex:commondvs}
 \\The common divisors of 12 and 18 are $\pm1, \pm2, \pm3, \text{ and } \pm6$.
-\\The common divisors of 25 and 50 are $\pm1, \pm5, \pm10, \text{ and } \pm25$.
+\\The common divisors of 25 and 50 are $\pm1, \pm5, \pm25$.
 
 \vspace{5mm}
 
 \noindent\textbf{Definition 10:} (Greatest Common Divisor)
 \label{def:gcd}
-\\Let $a,b \in \mathbb{Z}$. We say that an integer $d$ is the greatest common divisor of $a$ and $b$, provided that:
+\\Let $a,b \in \mathbb{Z}$. An integer $d\ge 0$ is the greatest common divisor of $a$ and $b$ if:
 \begin{enumerate}
-    \item $d$ is a common divisor of $a$ and $b$
-    \item If $e \mid a$ and $e \mid b$, then $e \leq d$
+    \item $d$ divides $a$ and $d$ divides $b$ (so $d$ is a common divisor), and
+    \item for every common divisor $e$ of $a$ and $b$ we have $e \mid d$.
 \end{enumerate}
-The greatest common divisor of $a$ and $b$ is denoted as $\gcd(a,b)$. By definition it is always positive.
+We denote the greatest common divisor of $a$ and $b$ by $\gcd(a,b)$.
 
 \vspace{5mm}
 
@@ -130,32 +135,35 @@ The greatest common divisor of $a$ and $b$ is denoted as $\gcd(a,b)$. By definit
 \label{ex:gcdnaive}
 \\The greatest common divisor of 18 and 12 is 6. Using the naive method: 
 \begin{enumerate}
-    \item Find all divisors of $a$ 
-    \item Find all divisors of $b$
-    \item Choose the largest number that is a divisor of both $a$ and $b$
+    \item Find all divisors of $a$.
+    \item Find all divisors of $b$.
+    \item Choose the largest positive number that is a divisor of both $a$ and $b$.
 \end{enumerate}
 
 \vspace{5mm}
 
 \noindent\textbf{Theorem 12:} (Fundamental Theorem of Arithmetic)
 \label{thm:fta}
-\\Every integer greater than 1 can be written uniquely as a prime or as the product of primes, written in nondecreasing order.
+\\Every integer greater than 1 can be written uniquely (up to ordering of equal primes) as a product of primes.
 
 \vspace{5mm}
 
 \noindent\textbf{Example 13:}
 \label{ex:primefact}
-\\the prime factorizations of 20,23,288, and 621 are:
+\\The prime factorizations of $20, 23, 288$, and $621$ are:
 \[
-r_0 = 20 = 2 \cdot 2 \cdot 5 = 2^2 \cdot 5, \]
-\[
-r_1 = 23 = 23, \]
-\[
-r_2 = 288 = 2 \cdot 2 \cdot 2 \cdot 2 \cdot 2 \cdot 3 \cdot 3 = 2^5 \cdot 3^2, \]
-\[
-r_3 = 621 = 3 \cdot 3 \cdot 3 \cdot 23 = 3^3 \cdot 23
+r_0 = 20 = 2 \cdot 2 \cdot 5 = 2^2 \cdot 5,
 \]
-We can find the greatest common divisor of two numbers by taking the product of all common prime factors. That is, 
+\[
+r_1 = 23 = 23,
+\]
+\[
+r_2 = 288 = 2 \cdot 2 \cdot 2 \cdot 2 \cdot 2 \cdot 3 \cdot 3 = 2^5 \cdot 3^2,
+\]
+\[
+r_3 = 621 = 3 \cdot 3 \cdot 3 \cdot 23 = 3^3 \cdot 23.
+\]
+We can find the greatest common divisor of two numbers by taking the product of all common prime factors with the minimum exponents. That is, 
 \[
 \gcd(r_0, r_2) = 2^2 = 4 \quad \text{and} \quad \gcd(r_2, r_3) = 3^2 = 9.
 \]
@@ -164,11 +172,9 @@ Since \(r_0\) does not have any common prime factors with \(r_3\), we have
 \gcd(r_0, r_3) = 1.
 \]
 
-We can also find the least common multiple of two numbers using this method.  
+We can also find the least common multiple of two numbers using the maximum exponents in their prime factorizations.  
 
-However, the above method is inefficient. In fact, for large numbers that are often used in public-key cryptography, factoring is not even computationally feasible. We will see a much more efficient method, called the \emph{Euclidean Algorithm}.
-
-
+However, the above method is inefficient for very large numbers. We will see a much more efficient method, called the \emph{Euclidean Algorithm}.
 
 \vspace{5mm}
 
@@ -197,13 +203,12 @@ This forms the basis for the Euclidean Algorithm:
     \item Otherwise, the answer is $\gcd(b,c)$.
 \end{enumerate}
 
-
 \noindent\textbf{Example 17:}
 \label{ex:euclid360}
 \begin{align*}
-360 \bmod 84 &= 24 \\
-84 \bmod 24 &= 12 \\
-24 \bmod 12 &= 0
+360 \bmod 84 &= 24, \\
+84 \bmod 24 &= 12, \\
+24 \bmod 12 &= 0.
 \end{align*}
 so, $\gcd(360,84) = 12$.
 
@@ -211,21 +216,19 @@ so, $\gcd(360,84) = 12$.
 
 \noindent\textbf{Example 18:}
 \label{ex:euclid720}
-\\to find $\gcd(720,26)$ using the Euclidean Algorithm:
+\\To find $\gcd(720,26)$ using the Euclidean Algorithm:
 \begin{align*}
-720 \bmod 26 &= 16 \\   
-26 \bmod 16 &= 10 \\
-16 \bmod 10 &= 6 \\
-10 \bmod 6 &= 4 \\
-6 \bmod 4 &= 2 \\
-4 \bmod 2 &= 0
+720 \bmod 26 &= 18 \quad(26\cdot 27 = 702,\ 720-702=18), \\   
+26 \bmod 18 &= 8, \\
+18 \bmod 8 &= 2, \\
+8 \bmod 2 &= 0.
 \end{align*}
 so, $\gcd(720,26) = 2$.
 
-
+\newpage
 \noindent\textbf{Theorem 19:}
 \label{thm:bezout}
-\\Let $a,b \in \mathbb{Z}$, at least one nonzero. 
+\\Let $a,b \in \mathbb{Z}$, not both zero. 
 The gcd $d$ of $a$ and $b$ can be written as:
 \[
 d = ax + by
@@ -233,8 +236,7 @@ d = ax + by
 for some integers $x$ and $y$.  
 \\We can use the Euclidean Algorithm to find $x$ and $y$.  
 \\Recall from \hyperref[thm:division]{Theorem 2} that for any integers 
-$a$ and $b$ with $b>0$, if we divide $a$ by $b$ we obtain $r=a \bmod b$ such that:
-(the remainder) and $q=a \div b$ (the quotient), and we can write $a=bq+r$.
+$a$ and $b$ with $b>0$, if we divide $a$ by $b$ we obtain $r=a \bmod b$ (the remainder) and $q=a \div b$ (the quotient), and we can write $a=bq+r$.
 \\Note that in the first step of the Euclidean Algorithm, we only kept track of the 
 remainder ($a \bmod b$) but now we will also keep track of the quotient ($a \div b$),
 and will write each line in the form $a=bq+r$.
@@ -258,20 +260,23 @@ and will write each line in the form $a=bq+r$.
 
 Questions: 3, 5, 13, 21, 31
 \\\\
-\underline{3.prove that if $a \mid b$ then $a \mid bc$ for all integers $c$:}
-\\\indent by the definition of Divisibility, we know that if $a \mid b$, then $b = ak$ for some integer $k$.
- if we multiply both sides by $c$, we get $bc = akc$.
- since $akc = a(kc)$, and $kc$ is an integer, we can say that $a \mid bc$.   
-\\\\
-\underline{5.Show that if $a \mid b$ and $b\mid a$ where $a,b \in \mathbb{Z}$, then $a=b$ or $a=-b$:}
-\\\indent by the definition of Divisibility, we know that if $a \mid b$, then $b = ak$ for some integer $k$.
- similarly, if $b \mid a$, then $a = bm$ for some integer $m$.
- \\substituting the first equation into the second, we get $a = (ak)m$, or $a = akm$.
- dividing both sides by $a$ (which is nonzero), we get $1 = km$.
- since $k$ and $m$ are integers, the only way for their product to be 1 is if both are 1 or both are -1.
- thus, if $k=1$, then $b=a$, and if $k=-1$, then $b=-a$.
-\\\\
-\underline{13.What are the quotient and remainder when:}
+\underline{3.\;Prove that if $a \mid b$ then $a \mid bc$ for all integers $c$:}
+\\\indent By the definition of divisibility, if $a \mid b$ then $b = ak$ for some integer $k$.
+Multiplying both sides by $c$ gives $bc = akc$.
+Since $akc = a(kc)$ and $kc$ is an integer, we have $a \mid bc$.   
+
+\vspace{5mm}
+\underline{5.\;Show that if $a \mid b$ and $b\mid a$ where $a,b \in \mathbb{Z}$, then $a=b$ or $a=-b$:}
+\\\indent By the definition of divisibility, if $a \mid b$ then $b = ak$ for some integer $k$.
+Similarly, if $b \mid a$, then $a = bm$ for some integer $m$.
+Substituting the first equation into the second gives $a = (ak)m$, or $a = akm$.
+If $a\neq 0$, dividing both sides by $a$ yields $1 = km$.
+Since $k$ and $m$ are integers, the only integer solutions to $km=1$ are $k=m=1$ or $k=m=-1$.
+Thus, if $k=1$, then $b=a$, and if $k=-1$, then $b=-a$.
+(If $a=0$, then the divisibility statements imply $b=0$, and the conclusion $a=b$ also holds.)
+
+\vspace{5mm}
+\underline{13.\;What are the quotient and remainder when:}
 \begin{enumerate}[label=(\alph*)]
     \item 19 is divided by 7
     \[
@@ -281,6 +286,7 @@ Questions: 3, 5, 13, 21, 31
     \[
     -111 = -11 \cdot 11 + 10 \quad \Rightarrow \quad -111 \div 11 = -11, \quad -111 \bmod 11 = 10
     \]
+    (Note: this follows the convention that remainders are in $0,\dots,10$.)
     \item 789 is divided by 23
     \[
     789 = 34 \cdot 23 + 7 \quad \Rightarrow \quad 789 \div 23 = 34, \quad 789 \bmod 23 = 7
@@ -308,16 +314,16 @@ Questions: 3, 5, 13, 21, 31
 \end{enumerate}
 
 \vspace{5mm}
-\noindent\underline{21.Let $m$ be a positive integer. Show that $a \equiv b \pmod{m}$ if $a \bmod m = b \bmod m$:}
-\\\indent by the definition of congruence modulo $m$, we know that if $a \equiv b \pmod{m}$, then $m \mid (a-b)$.
- this means that $a-b = mk$ for some integer $k$.
- adding $b$ to both sides, we get $a = mk + b$.
- taking both sides modulo $m$, we get $a \bmod m = (mk + b) \bmod m$.
- since $mk \bmod m = 0$, we have $a \bmod m = b \bmod m$.
+\noindent\underline{21.\;Let $m$ be a positive integer. Show that $a \equiv b \pmod{m}$ if $a \bmod m = b \bmod m$:}
+\\\indent Suppose $a \bmod m = b \bmod m$. Then there exist integers $q_a,q_b$ and a remainder $r$ with $0\le r<m$ such that
+\[
+a = m q_a + r,\qquad b = m q_b + r.
+\]
+Subtracting gives $a-b = m(q_a-q_b)$, so $m\mid (a-b)$. Hence $a\equiv b\pmod m$.
 
 \vspace{5mm}
 
-\noindent\underline{31.Find the integer $a$ such that:}
+\noindent\underline{31.\;Find the integer $a$ such that:}
 \begin{enumerate}[label=(\alph*)]
     \item $a \equiv -15 \pmod{27}$ and $-26 \leq a \leq 0$
 \[
@@ -344,7 +350,7 @@ a = 99 + 41 = 140 \quad \text{(in the interval, so the solution is $a=140$).}
 Questions: 3, 13, 17, 19, 25, 30, 31, 33, 39, 41, 43, 45
 \\\\
 
-\noindent\underline{3.Find the prime factorization of each of the following integers:}
+\noindent\underline{3.\;Find the prime factorization of each of the following integers:}
 \begin{enumerate}[label=(\alph*)]
     \item 88
     \[
@@ -352,7 +358,7 @@ Questions: 3, 13, 17, 19, 25, 30, 31, 33, 39, 41, 43, 45
     \]
     \item 126
     \[
-    126 = 2 \cdot 3 \cdot 3 \cdot 7 = 2^1 \cdot 3^2 \cdot 7
+    126 = 2 \cdot 3 \cdot 3 \cdot 7 = 2 \cdot 3^2 \cdot 7
     \]
     \item 729
     \[
@@ -360,75 +366,592 @@ Questions: 3, 13, 17, 19, 25, 30, 31, 33, 39, 41, 43, 45
     \]
     \item 1001
     \[
-    1001 = 7 \cdot 11 \cdot 13 = 7^1 \cdot 11^1 \cdot 13^1
+    1001 = 7 \cdot 11 \cdot 13
     \]
     \item 1111
     \[
-    1111 = 11 \cdot 101 = 11^1 \cdot 101^1
+    1111 = 11 \cdot 101
     \]
     \item 909090
     \[
-    909090 = 2 \cdot 3 \cdot 3 \cdot 3 \cdot 5 \cdot 7  \cdot 13 \cdot 37 = 2^1 \cdot 3^3 \cdot 5^1 \cdot 7^1  \cdot 13^1 \cdot 37^1
+    909090 = 2 \cdot 3^3 \cdot 5 \cdot 7 \cdot 13 \cdot 37 = 2 \cdot 3^3 \cdot 5 \cdot 7 \cdot 13 \cdot 37
     \]
 \end{enumerate}
 
 \vspace{3.3mm}
-\noindent\underline{13.} prove or disprove that there are three consecutive odd positive integers that are primes, that is odd primes of  the form p, p+2, and p+4:
-\rule{\linewidth}{0.5pt}
-\indent Let $p$ be an odd prime. then consider $p, p+2, p+4$ in $\pmod{3}$.
+\noindent\underline{13.} prove or disprove that there are three consecutive odd positive integers that are primes, that is odd primes of the form $p, p+2, p+4$:
+\\\rule{\linewidth}{0.5pt}
+\indent Let $p$ be an odd prime, and consider $p, p+2, p+4$ modulo $3$.
 \begin{itemize}
-    \item If $p \equiv 0 \pmod{3}$, then $p=3$ (since $p$ is prime). Then $p+2=5$ (prime), but $p+4=7$ (also prime). So this case works.
+    \item If $p \equiv 0 \pmod{3}$, then $p=3$ (since $p$ is prime). Then $p+2=5$ (prime), and $p+4=7$ (also prime). So this case gives the triple $3,5,7$.
     \item If $p \equiv 1 \pmod{3}$, then $p+2 \equiv 0 \pmod{3}$. Since $p+2 > 3$, it is divisible by 3 and not prime.
     \item If $p \equiv 2 \pmod{3}$, then $p+4 \equiv 0 \pmod{3}$. Since $p+4 > 3$, it is divisible by 3 and not prime.
 \end{itemize}
-Therefore the only set of three consecutive odd positive integers that are primes is 3, 5, and 7.
+Therefore the only set of three consecutive odd positive integers that are all prime is $3,5,7$.
 
 \newpage
-\noindent\underline{17. Determine whether the integers in each of these sets are pairwise relatively prime:}
+\noindent\underline{17.\;Determine whether the integers in each of these sets are pairwise relatively prime:}
 \begin{enumerate}[label=(\alph*)]
     \item $11, 15 ,19$
     \[
     \gcd(11, 15) = 1, \quad \gcd(11, 19) = 1, \quad \gcd(15, 19) = 1
     \]
-    they are relatively prime.
+    they are pairwise relatively prime.
     \item $14, 15 ,21$
     \[
     \gcd(14, 15) = 1, \quad \gcd(14, 21) = 7, \quad \gcd(15, 21) = 3
     \]
-    they are not relatively prime.
+    they are not pairwise relatively prime.
     \item $12, 17, 31 ,37$
     \[
     \gcd(12, 17) = 1, \quad \gcd(12, 31) = 1, \quad \gcd(12, 37) = 1, \] 
-    \[\gcd(17, 31) = 1, \quad \gcd(17, 37) = 1, \quad \gcd(31, 37) = 1\]
-    they are relatively prime.
+    \[\gcd(17, 31) = 1, \quad \gcd(17, 37) = 1, \quad \gcd(31, 37) = 1
+    \]
+    they are pairwise relatively prime.
     \item $7, 8, 9, 11$
     \[
     \gcd(7, 8) = 1, \quad \gcd(7, 9) = 1, \quad \gcd(7, 11) = 1, \] 
-    \[\gcd(8, 9) = 1, \quad \gcd(8, 11) = 1, \quad \gcd(9, 11) = 1\]
-    they are relatively prime.
+    \[\gcd(8, 9) = 1, \quad \gcd(8, 11) = 1, \quad \gcd(9, 11) = 1
+    \]
+    they are pairwise relatively prime.
 \end{enumerate}
 
 \vspace{5mm}
-\noindent\underline{19. Show that if $2^n-1$ is prime, then $n$ is prime:}
-\\\indent By contrapositive, if $n$ is not prime, then $2^n-1$ is not prime. 
-Let $n = ab$, where $a,b > 1$. Then $2^n -1 = 2^{ab} -1$.  This can be factored as: 
-$(2^a-1)(2^{a(b-1)} + 2^{a(b-2)} + ... + 2^a + 1)$.
-Since both factors are greater than 1, $2^n - 1$ is not prime.
+\noindent\underline{19.\;Show that if $2^n-1$ is prime, then $n$ is prime:}
+\\\indent By contrapositive, if $n$ is not prime (so $n = ab$ with $a,b>1$), then
+\[
+2^n -1 = 2^{ab} -1 = (2^a-1)\left(2^{a(b-1)} + 2^{a(b-2)} + \cdots + 2^a + 1\right),
+\]
+so \(2^n-1\) is composite. Therefore if \(2^n-1\) is prime then \(n\) must be prime.
 
 \vspace{5mm}
-\noindent\underline{25. What are the greatest common divisors of these pairs of integers:}
+\noindent\underline{25.\;What are the greatest common divisors of these pairs of integers:}
 \begin{enumerate}[label=(\alph*)]
     \item $3^7 \cdot 5^3 \cdot 7^3$ and $2^{11} \cdot 3^5 \cdot 5^9$
 \[
-\gcd(3^7 \cdot 5^3 \cdot 7^3, 2^{11} \cdot 3^5 \cdot 5^9) = 3^{\min(7,5)} \cdot 5^{\min(3,9)} \cdot 7^{\min(3,0)} = 3^5 \cdot 5^3 \cdot 7^0 = 3^5 \cdot 5^3
+\gcd(3^7 \cdot 5^3 \cdot 7^3, 2^{11} \cdot 3^5 \cdot 5^9) = 3^{\min(7,5)} \cdot 5^{\min(3,9)} \cdot 7^{\min(3,0)} = 3^5 \cdot 5^3
 \]
     \item $11 \cdot 13 \cdot 17$ and $2^9 \cdot 3^7 \cdot 5^5 \cdot 7^3$
+\[
+\gcd(11 \cdot 13 \cdot 17, 2^9 \cdot 3^7 \cdot 5^5 \cdot 7^3) = 1
+\]
     \item $23^{31}$ and $23^{17}$
+\[
+\gcd(23^{31}, 23^{17}) = 23^{17}
+\]
     \item $41 \cdot 43 \cdot 53$ and $41 \cdot 43 \cdot 53$
+\[
+\gcd(41 \cdot 43 \cdot 53, 41 \cdot 43 \cdot 53) = 41 \cdot 43 \cdot 53
+\]
     \item $3^{13} \cdot 5^{17}$ and $2^{12} \cdot 7^{21}$
+\[
+\gcd(3^{13} \cdot 5^{17}, 2^{12} \cdot 7^{21}) = 1
+\]
     \item $1111$ and $0$
-
-    
+\[
+\gcd(1111, 0) = 1111.
+\]
 \end{enumerate}
+
+\vspace{15mm}
+\textbf{From this point on, I have begun sipping a cut water, moose on the line, money on the mind.}
+
+
+\noindent\underline{30.}If the product of two integers is $2^7\cdot 3^8 \cdot 5^2 \cdot 7^{11}$ and their greatest common divisor is $2^3 \cdot 3^4 \cdot 5$, what is their least common multiple?
+ \\ \rule{\linewidth}{0.5pt}
+By definition, for positive integers $a$ and $b$,
+\[
+a \cdot b = \gcd(a,b) \cdot \lcm(a,b).
+\]
+Therefore
+\[
+\lcm(a,b) = \frac{a \cdot b}{\gcd(a,b)} = \frac{2^7\cdot 3^8 \cdot 5^2 \cdot 7^{11}}{2^3 \cdot 3^4 \cdot 5} = 2^{4} \cdot 3^{4} \cdot 5^{1} \cdot 7^{11}.
+\]
+
+\vspace{5mm}
+
+\noindent\underline{31.}Show that if $a$ and $b$ are positive integers, then $ab=\gcd(a,b) \cdot \lcm(a,b)$:
+\\ \rule{\linewidth}{0.5pt}
+\\\indent By the prime factorization theorem, we can write $a$ and $b$ as:
+\[a = p_1^{e_1} \cdot p_2^{e_2} \cdot \dots \cdot p_k^{e_k}\]
+\[b = p_1^{f_1} \cdot p_2^{f_2} \cdot \dots \cdot p_k^{f_k}\]
+where $p_1, p_2, \dots, p_k$ are the primes appearing in either factorization (exponent possibly zero for some primes).
+The gcd and lcm can be written as:
+\[\gcd(a,b) = p_1^{\min(e_1,f_1)} \cdot p_2^{\min(e_2,f_2)} \cdot \dots \cdot p_k^{\min(e_k,f_k)}\]
+\[\lcm(a,b) = p_1^{\max(e_1,f_1)} \cdot p_2^{\max(e_2,f_2)} \cdot \dots \cdot p_k^{\max(e_k,f_k)}\]
+Multiplying these together, we get:
+\[
+ \gcd(a,b) \cdot \lcm(a,b) = p_1^{\min(e_1,f_1) + \max(e_1,f_1)} \cdot \dots \cdot p_k^{\min(e_k,f_k) + \max(e_k,f_k)}.
+\]
+Since $\min(x,y) + \max(x,y) = x + y$, we have:
+\[
+ \gcd(a,b) \cdot \lcm(a,b) = p_1^{e_1 + f_1} \cdot \dots \cdot p_k^{e_k + f_k} = a \cdot b.
+\]
+
+\vspace{5mm}
+\noindent\underline{33.\;Use the Euclidean algorithm to find:}
+\begin{enumerate}[label=(\alph*)]
+    \item $\gcd(12,18)$
+    \[
+    18 \bmod 12 = 6,\quad 12 \bmod 6 = 0
+    \]
+    so, $\gcd(12,18) = 6$.
+    \item $\gcd(111,201)$
+    \[
+    201 \bmod 111 = 90,\quad 111 \bmod 90 = 21,\quad 90 \bmod 21 = 6,\quad 21 \bmod 6 = 3,\quad 6 \bmod 3 = 0
+    \]
+    so, $\gcd(111,201) = 3$.
+    \item $\gcd(1001,1331)$
+    \[
+    1331 \bmod 1001 = 330,\quad 1001 \bmod 330 = 11,\quad 330 \bmod 11 = 0
+    \]
+    so, $\gcd(1001,1331) = 11$.
+    \item $\gcd(12345,54321)$
+    \[
+    54321 \bmod 12345 = 4941,\quad 12345 \bmod 4941 = 2463,\quad 4941 \bmod 2463 = 15,
+    \]
+    \[
+    2463 \bmod 15 = 3,\quad 15 \bmod 3 = 0
+    \]
+    so, $\gcd(12345,54321) = 3$.
+    \item $\gcd(1000,5040)$
+    \[
+    5040 \bmod 1000 = 40,\quad 1000 \bmod 40 = 0
+    \]
+    so, $\gcd(1000,5040) = 40$.
+    \item $\gcd(9888,6060)$
+    \[
+    9888 \bmod 6060 = 3828,\quad 6060 \bmod 3828 = 2232,\quad 3828 \bmod 2232 = 1596,
+    \]
+    \[
+    2232 \bmod 1596 = 636,\quad 1596 \bmod 636 = 324,\quad 636 \bmod 324 = 312,
+    \]
+    \[
+    324 \bmod 312 = 12,\quad 312 \bmod 12 = 0
+    \]
+    so, $\gcd(9888,6060) = 12$.
+\end{enumerate}
+
+\newpage
+\noindent\underline{39.}Express the greatest common divisor of each of these pairs of integers as a linear combination of the integers:
+\\\rule{\linewidth}{0.5pt}
+\begin{enumerate} [label=(\alph*)]
+    \item 10,11 
+    \[
+    \begin{aligned}
+    11 &= 1 \cdot 10 + 1, \\
+    10 &= 10 \cdot 1 + 0.
+    \end{aligned}
+    \]
+Thus, $\gcd(10,11) = 1$.
+
+Back-substitute:
+    \[
+    1 = 11 - 1\cdot 10,
+    \]
+so
+\[
+1 = 10(-1) + 11(1).
+\]
+
+    \item 21,44
+
+\[44 = 2\cdot21 + 2,\quad 21 = 10\cdot 2 + 1,\quad 2 = 2\cdot 1 + 0.\]
+
+Thus, $\gcd(21,44) = 1$.
+
+Back-substitution:
+\[
+1 = 21 - 10\cdot 2 = 21 - 10(44 - 2\cdot21) = 21\cdot21 - 44\cdot10,
+\]
+so
+\[
+1 = 21(21) + 44(-10).
+\]
+
+\item 36,48
+
+\[
+48 = 1\cdot36 + 12,\quad 36 = 3\cdot12 + 0.
+\]
+
+Thus, $\gcd(36,48) = 12$.
+
+Back-substitution:
+\[
+12 = 48 - 1\cdot36,
+\]
+so
+\[
+12 = 36(-1) + 48(1).
+\]
+
+\item 34,55
+
+\[
+\begin{aligned}
+55 &= 1\cdot34 + 21, \\
+34 &= 1\cdot21 + 13, \\
+21 &= 1\cdot13 + 8, \\
+13 &= 1\cdot8 + 5, \\
+8 &= 1\cdot5 + 3, \\
+5 &= 1\cdot3 + 2, \\
+3 &= 1\cdot2 + 1, \\
+2 &= 2\cdot1 + 0.
+\end{aligned}
+\]
+
+Back-substitution gives the linear combination
+\[
+1 = 34(-21) + 55(13).
+\]
+
+\item 117,213
+
+\[
+\begin{aligned}
+213 &= 1\cdot117 + 96, \\
+117 &= 1\cdot96 + 21, \\
+96 &= 4\cdot21 + 12, \\
+21 &= 1\cdot12 + 9, \\
+12 &= 1\cdot9 + 3, \\
+9 &= 3\cdot3 + 0.
+\end{aligned}
+\]
+
+Back-substitution yields
+\[
+3 = 117(-20) + 213(11).
+\]
+
+    \item 0,223
+
+If one argument is 0, say $\gcd(0,223)=223$ and we can write
+\[
+223 = 0\cdot 0 + 223\cdot 1,
+\]
+so $\gcd(0,223) = 223 = 0(0) + 223(1)$.
+
+    \item 123,2347
+
+(See the extended Euclidean algorithm in Section 45 for a full worked example; result below.)
+
+    \item 3454,4666
+
+(Left as an exercise; use the Euclidean algorithm and back-substitute.)
+
+    \item 9999,11111
+
+(Left as an exercise; use the Euclidean algorithm and back-substitute.)
+\end{enumerate}
+
+\vspace{5mm}
+\noindent\underline{41.}Use the extended Euclidean algorithm to express $\gcd(26,91)$ as a linear combination of 26 and 91:
+\\ \rule{\linewidth}{0.5pt}
+\[
+91 = 3 \cdot 26 + 13,\quad 26 = 2 \cdot 13 + 0.
+\]
+
+Thus, $\gcd(26,91) = 13$.
+
+Back-substitution:
+\[
+13 = 91 - 3\cdot 26,
+\]
+so
+\[
+13 = 26(-3) + 91(1).
+\]
+
+\vspace{5mm}
+\noindent\underline{43.}Use the extended Euclidean algorithm to express $\gcd(144,89)$ as a linear combination of 144 and 89:
+\\ \rule{\linewidth}{0.5pt}
+\[
+\begin{aligned}
+144 &= 1\cdot89 + 55, \\
+89  &= 1\cdot55 + 34, \\
+55  &= 1\cdot34 + 21, \\
+34  &= 1\cdot21 + 13, \\
+21  &= 1\cdot13 + 8, \\
+13  &= 1\cdot8 + 5, \\
+8   &= 1\cdot5 + 3, \\
+5   &= 1\cdot3 + 2, \\
+3   &= 1\cdot2 + 1, \\
+2   &= 2\cdot1 + 0.
+\end{aligned}
+\]
+Thus, $\gcd(144,89) = 1$.
+Back-substitution (working upward) yields the correct linear combination
+\[
+1 = 34\cdot144 - 55\cdot89,
+\]
+so
+\[
+\gcd(144,89) = 1 = 144(34) + 89(-55).
+\]
+
+\newpage
+\noindent\underline{45.\;Describe the extended Euclidean algorithm using pseudocode:}
+\[ax + by = \gcd(a,b).\]
+
+\noindent\textbf{Pseudocode:}
+\begin{enumerate}
+    \item \textbf{Input:} Two integers $a, b$.
+    \item \textbf{Output:} $\gcd(a,b)$ and integers $x, y$ such that $ax + by = \gcd(a,b)$.
+    \item If $b = 0$, then:
+    \begin{enumerate}
+        \item return $(a, 1, 0)$.
+    \end{enumerate}
+    \item Otherwise:
+    \begin{enumerate}
+        \item Recursively call the algorithm with $(b, a \bmod b)$.
+        \item Suppose it returns $(d, x_1, y_1)$ such that $bx_1 + (a \bmod b) y_1 = d$.
+        \item Then set:
+        \[
+        x = y_1, \quad y = x_1 - \left\lfloor \tfrac{a}{b} \right\rfloor y_1.
+        \]
+        \item Return $(d, x, y)$.
+    \end{enumerate}
+\end{enumerate}
+
+\noindent\textbf{Example with $a=123$, $b=2347$:}
+
+\begin{enumerate}
+    \item Call $\text{EEA}(123,2347)$.
+    \item Since $b \neq 0$, compute $123 \bmod 2347 = 123$ and recurse on $(2347,123)$.
+    \item Call $\text{EEA}(2347,123)$. Compute:
+    \[
+    2347 = 123\cdot 19 + 10,\quad 123 = 10\cdot 12 + 3,\quad 10 = 3\cdot3 + 1,\quad 3 = 1\cdot3 + 0.
+    \]
+    \item Back-substitute and compute the coefficients. One correct identity is:
+    \[
+    123(-706) + 2347(37) = 1.
+    \]
+    \item Therefore $\gcd(123,2347) = 1$ and one solution is $x=-706$, $y=37$.
+\end{enumerate}
+
+\newpage
+\subsection*{week 2}
+\addcontentsline{toc}{subsection}{week 2}
+\subsubsection*{Section 4.4 (Solving Congruences)}
+\addcontentsline{toc}{subsubsection}{Section 4.4 (Solving Congruences)}
+Questions: 5, 9, 11, 15, 21, 22, 23, 27
+\\\\
+\noindent\underline{5.\;Find an inverse of $a$ modulo $m$ of each of these pairs:}
+\begin{enumerate}[label=(\alph*)]
+    \item $a =4, m=9$
+    \[
+    \text{must find } x \text{ such that } 4x \equiv 1 \pmod{9}.
+    \]
+    Using the extended Euclidean algorithm:
+    \begin{align*}
+    9 &= 2 \cdot 4 + 1, \\
+    4 &= 4 \cdot 1 + 0.
+    \end{align*}
+    Back-substituting gives:
+    \[
+    1 = 9 - 2 \cdot 4.
+    \]
+    Rearranging to isolate the coefficient of 4 gives $1 = (-2)\cdot4 + 1\cdot9$, so one inverse is $x=-2\equiv7\pmod9$.
+    \[
+    \therefore 4^{-1} \equiv 7 \pmod{9}.
+    \]
+
+    \item $a =19, m=141$
+    Using the extended Euclidean algorithm (steps omitted for brevity but can be computed), one finds
+    \[
+    1 = 19(52) + 141(-7),
+    \]
+    so $19^{-1} \equiv 52 \pmod{141}$.
+
+    \item $a =55, m=89$
+    Using the extended Euclidean algorithm one finds
+    \[
+    1 = 55(34) + 89(-21),
+    \]
+    therefore $55^{-1} \equiv 34 \pmod{89}$.
+
+    \item $a =89, m=232$
+    Using the extended Euclidean algorithm one finds
+    \[
+    1 = 89(73) + 232(-28),
+    \]
+    therefore $89^{-1} \equiv 73 \pmod{232}$.
+\end{enumerate}
+\vspace{5mm}
+\noindent\underline{9.\;Solve the congruence $4x \equiv 5 \pmod{9}$:}
+\\
+From question 5(a), $4^{-1} \equiv 7 \pmod{9}$.
+Multiplying both sides of the congruence by $4^{-1}$ gives:
+\[x \equiv 5 \cdot 7 \pmod{9}\]
+\[x \equiv 35 \pmod{9}\]
+Reducing $35$ modulo $9$ gives:
+\[x \equiv 8 \pmod{9}\]
+
+\newpage
+\noindent\underline{11.\;Solve each of these congruences:}
+\begin{enumerate}[label=(\alph*)]
+    \item $19x \equiv 4 \pmod{141}$\\
+From question 5(b), $19^{-1} \equiv 52 \pmod{141}$.
+    \[
+    x \equiv 4 \cdot 52 \equiv 208 \equiv 67 \pmod{141}.
+    \]
+    \item $55x \equiv 34 \pmod{89}$\\
+From question 5(c), $55^{-1} \equiv 34 \pmod{89}$.
+    \[
+    x \equiv 34 \cdot 34 \equiv 1156 \equiv 88 \pmod{89}.
+    \]
+    \item $89x \equiv 2 \pmod{232}$\\
+From question 5(d), $89^{-1} \equiv 73 \pmod{232}$.
+    \[
+    x \equiv 2 \cdot 73 \equiv 146 \pmod{232}.
+    \]
+\end{enumerate}
+
+\vspace{5mm}
+\noindent\underline{15.\;Show that if $m$ is an integer greater than $1$ and $ac \equiv bc \pmod{m}$, then $a \equiv b \pmod{\frac{m}{\gcd(c,m)}}$:}
+\\\indent Suppose $ac \equiv bc \pmod{m}$. Then $m \mid c(a-b)$. 
+Let $d=\gcd(c,m)$ and write $c = d c_1$ and $m = d m_1$, so that $\gcd(c_1,m_1)=1$. Since $m \mid c(a-b)$, we have $d m_1 \mid d c_1 (a-b)$. Cancelling the common factor $d$ gives $m_1 \mid c_1 (a-b)$. Because $\gcd(c_1,m_1)=1$, it follows that $m_1 \mid (a-b)$. Therefore $a \equiv b \pmod{m_1}$. Finally, since $m_1 = \tfrac{m}{d}$, we conclude that
+\[
+a \equiv b \pmod{\tfrac{m}{\gcd(c,m)}}.
+\]
+
+\vspace{5mm}
+\noindent\underline{21.}Use the construction in the proof of the Chinese Remainder Theorem to find all solutions to the system:
+\[
+ x \equiv 1 \pmod{2},\quad
+ x \equiv 2 \pmod{3},\quad
+ x \equiv 3 \pmod{5},\quad
+ x \equiv 4 \pmod{11}.
+\]
+\\ \rule{\linewidth}{0.5pt}
+Let $m_1=2$, $m_2=3$, $m_3=5$, and $m_4=11$. Then $M=m_1 m_2 m_3 m_4 = 330$. We compute:
+\[ M_1 = \frac{M}{m_1} = 165, \quad M_2 = \frac{M}{m_2} = 110, \quad M_3 = \frac{M}{m_3} = 66, \quad M_4 = \frac{M}{m_4} = 30. \]
+Next, we find the inverses:
+\[ y_1 \text{ such that } 165y_1 \equiv 1 \pmod{2} \implies y_1 = 1, \]
+\[ y_2 \text{ such that } 110y_2 \equiv 1 \pmod{3} \implies y_2 = 2, \]
+\[ y_3 \text{ such that } 66y_3 \equiv 1 \pmod{5} \implies y_3 = 1, \]
+\[ y_4 \text{ such that } 30y_4 \equiv 1 \pmod{11} \implies y_4 = 7. \]
+Now, we can construct the solution:
+\[
+x \equiv a_1 M_1 y_1 + a_2 M_2 y_2 + a_3 M_3 y_3 + a_4 M_4 y_4 \pmod{M}.
+\]
+Substituting the values we found:
+\[
+x \equiv 1 \cdot 165 \cdot 1 + 2 \cdot 110 \cdot 2 + 3 \cdot 66 \cdot 1 + 4 \cdot 30 \cdot 7 \pmod{330}.
+\]
+Calculating each term:
+\[
+x \equiv 165 + 440 + 198 + 840 \equiv 1643 \pmod{330}.
+\]
+Reducing $1643$ modulo $330$ gives:
+\[
+x \equiv 323 \pmod{330}.
+\]
+Thus, the solution to the system is:
+\[
+x \equiv 323 \pmod{330}.
+\]
+
+\newpage
+\noindent\underline{22.}Solve the system of congruences $x \equiv 3 \pmod{6}$ and $x \equiv 4 \pmod{7}$ using back substitution:
+\\ \rule{\linewidth}{0.5pt}
+From the first congruence, $x=6k+3$. Substitute into the second:
+\[
+6k+3 \equiv 4 \pmod{7} \implies 6k \equiv 1 \pmod{7}.
+\]
+Since $6^{-1}\equiv6\pmod7$, $k\equiv6\pmod7$. So $k=7m+6$ and
+\[
+x = 6(7m+6)+3 = 42m + 39.
+\]
+Therefore $x \equiv 39 \pmod{42}$.
+
+\vspace{5mm}
+
+\newpage
+\noindent\underline{27.\;Find all solutions (if any) to the system:}
+\[
+ x \equiv 7 \pmod{9},\quad
+ x \equiv 4 \pmod{12},\quad
+ x \equiv 16 \pmod{21}.
+\]
+\\ \rule{\linewidth}{0.5pt}
+From the first congruence, $x = 9k + 7$. Substitute into the second:
+\[
+9k + 7 \equiv 4 \pmod{12} \implies 9k \equiv 9 \pmod{12}.
+\]
+Since $\gcd(9,12)=3$, divide through by 3 to get $3k \equiv 3 \pmod{4}$, i.e. $k \equiv 1 \pmod{4}$. So $k=1+4t$ and
+\[
+x = 9(1+4t)+7 = 16 + 36t.
+\]
+Substitute into the third congruence:
+\[
+16 + 36t \equiv 16 \pmod{21} \implies 36t \equiv 0 \pmod{21}.
+\]
+Since $\gcd(36,21)=3$, divide by 3: $12t \equiv 0 \pmod{7}$. Because $12\equiv5\pmod7$ and $\gcd(5,7)=1$, we get $t\equiv 0 \pmod{7}$, so $t=7s$.
+Thus
+\[
+x = 16 + 36\cdot 7s = 16 + 252s,\quad s\in\mathbb{Z}.
+\]
+Therefore $x \equiv 16 \pmod{252}$.
+
+\newpage
+
+\subsection*{Week 3}
+\addcontentsline{toc}{subsection}{Week 3}
+\subsubsection*{Section 4.1 (Divisibility and Modular Arithmetic)}
+\addcontentsline{toc}{subsubsection}{Section 4.1 (Divisibility and Modular Arithmetic)}
+Questions: 48, 49, 50
+\\\\
+
+
+\noindent\underline{48.}Show that $\mathbb{Z}_m$ with addition modulo $m$, where $m \geq 2$ is an integer, satisfies closure, associativity, and commutativity; $0$ is an additive identity; and for every $a\in\mathbb{Z}_m$ the element $m-a$ is an additive inverse of $a$:
+\\\rule{\linewidth}{0.5pt}
+
+\textbf{Closure:} For any $a, b \in \mathbb{Z}_m$, the sum $a + b$ (taken modulo $m$) is again an element of $\mathbb{Z}_m$. Thus $\mathbb{Z}_m$ is closed under addition modulo $m$.
+
+\textbf{Associativity:} Integer addition is associative, and reducing modulo $m$ preserves associativity, so for any $a,b,c\in\mathbb{Z}_m$,
+\[
+(a+b)+c \equiv a+(b+c) \pmod{m}.
+\]
+
+\textbf{Commutativity:} Integer addition is commutative, hence so is addition modulo $m$:
+\[
+a+b \equiv b+a \pmod{m}.
+\]
+
+\textbf{Additive identity:} The class $0\in\mathbb{Z}_m$ satisfies $a+0\equiv a\pmod m$ for all $a\in\mathbb{Z}_m$.
+
+\textbf{Additive inverses:} For any $a\in\mathbb{Z}_m$, the element $m-a$ (interpreted modulo $m$) satisfies $a+(m-a)\equiv 0\pmod m$.
+
+Therefore $\mathbb{Z}_m$ is an abelian group under addition modulo $m$.
+
+\newpage
+\noindent\underline{49.}Show that $\mathbb{Z}_m$ with multiplication modulo $m$, where $m \geq 2$ is an integer, satisfies closure, associativity, and commutativity, and $1$ is a multiplicative identity. Is it a group?
+\\\rule{\linewidth}{0.5pt}
+\textbf{Closure:} For $a,b\in\mathbb{Z}_m$, the product $a\cdot b \pmod m$ lies in $\mathbb{Z}_m$.
+
+\textbf{Associativity:} Integer multiplication is associative, and reduction modulo $m$ preserves associativity.
+
+\textbf{Commutativity:} Integer multiplication is commutative, so multiplication modulo $m$ is commutative.
+
+\textbf{Multiplicative identity:} $1\in\mathbb{Z}_m$ satisfies $a\cdot 1 \equiv a \pmod m$ for all $a\in\mathbb{Z}_m$.
+
+\textbf{Is it a group?} Not necessarily. Not every element of $\mathbb{Z}_m$ has a multiplicative inverse modulo $m$. For example, when $m=4$, the element $2$ has no inverse modulo $4$. Thus $\mathbb{Z}_m$ under multiplication is a commutative monoid with identity $1$, but it is a group only when every nonzero element is invertible — which happens exactly when $m$ is prime. The subgroup of units
+\[
+\mathbb{Z}_m^\times = \{[a]_m : \gcd(a,m)=1\}
+\]
+is an abelian group under multiplication modulo $m$.
+
+\newpage
+
+\noindent\underline{50.}Show that the distributive property of multiplication over addition holds for $\mathbb{Z}_m$, where $m \geq 2$ is an integer.
+\\\rule{\linewidth}{0.5pt}
+
+For any $a, b, c \in \mathbb{Z}_m$, integer arithmetic satisfies $a(b+c) = ab + ac$. Reducing both sides modulo $m$ preserves equality, so
+\[
+a\cdot (b + c) \equiv a\cdot b + a\cdot c \pmod{m}.
+\]
+Thus, the distributive law holds in $\mathbb{Z}_m$.
 
 \end{document}
