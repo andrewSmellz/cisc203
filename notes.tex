@@ -616,7 +616,46 @@ so we have $t=1+6s$ for some non negative integer $s$. Now we substitute $t=1+6s
     x &= 16 + 35(1+6s) \\
     &= 51 + 210s
 \end{align*}
-Note that $x$ is a solution to the three gonruences for any value of $s$, so we have infinitely many solutions. Also note that the term $210s$ tells us that we only have one solution less than 210, and  that each solution to the euqaiton differs from the next by a multiple of 210, and $210=5 \cdot 7 \cdot 6$ which is the product of the moduli.
+Note that $x$ is a solution to the three congruences for any value of $s$, so we have infinitely many solutions. Also note that the term $210s$ tells us that we only have one solution less than 210, and  that each solution to the euqaiton differs from the next by a multiple of 210, and $210=5 \cdot 7 \cdot 6$ which is the product of the moduli.
+
+\subsection{Groups}
+Informally, you are already familiar with operations. For example, the addition operation + takes a pair of
+numbers as input, and produces their sum as output. Now, we give the formal definition of an operation.
+
+\vspace{5mm}
+\noindent\textbf{Definition 1:}(Operation)
+\\
+let $A$ be a set. An operation on $A$ is a function that maps elements in $A \times A$ to elements in $A$. 
+
+\vspace{5mm}
+\noindent\textbf{Example 2:}
+\\Consider the operations $\oplus, \odot,$ and $\ominus$, which are all functions from
+$\mathbb{Z}_n \times \mathbb{Z}_n$ to $\mathbb{Z}_n$. Where $\mathbb{Z}_n = \{0,1,2,\dots,n-1\}$.
+\\the operation $\oslash$ is a function from $\mathbb{Z}_p^* \times \mathbb{Z}_p^*$ to $\mathbb{Z}_p^*$, 
+where $p$ is a prime number and $\mathbb{Z}_p^* = \mathbb{Z}_p \setminus \{0\}$.
+\\ a common symbol used to generically represent an operation is $\ast$.
+\\
+\vspace{5mm}\\
+\noindent\textbf{Definition 3:}(properties of operations)
+\\
+Let $\ast$ be an operation on a set $A$. the following are some important properties that the operation may have.
+\begin{enumerate}
+    \item \textbf{Commutative property:} $\ast$ is commutative on $A$ provided that $a \ast b = b \ast a$ for all $a,b \in A$.
+    \item \textbf{Closure property:} $\ast$ is closed on $A$ provided that $a \ast b \in A$ for all $a,b \in A$.
+    \item \textbf{Associative property:} $\ast$ is associative on $A$ provided that $(a \ast b) \ast c = a \ast (b \ast c)$ for all $a,b,c \in A$.
+    \item \textbf{Inverses:} Suppose that $e \in A$ is the identity element. We can call $b$ an inverse of $a$ provided that
+    $a \ast b = b \ast a = e$.
+\end{enumerate}
+
+\vspace{5mm}
+\noindent\textbf{Example 4:}
+\\ to be continued...
+
+
+
+
+
+
 
 \newpage
 \section{Recurrence Relations}
