@@ -4,6 +4,10 @@
 \usepackage{amsmath, amssymb}
 \usepackage{enumitem}
 \usepackage{geometry}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage[table]{xcolor}
+
 \geometry{margin=1in}
 
 \DeclareMathOperator{\lcm}{lcm}
@@ -247,6 +251,372 @@ $a$ and $b$ with $b>0$, if we divide $a$ by $b$ we obtain $r=a \bmod b$ (the rem
 \\Note that in the first step of the Euclidean Algorithm, we only kept track of the 
 remainder ($a \bmod b$) but now we will also keep track of the quotient ($a \div b$),
 and will write each line in the form $a=bq+r$.
+
+
+\vspace{5mm}
+\noindent\textbf{Example 20:}
+Using the Euclidean algorithm, we can find the integers $x$ and $y$ such that $360x+84y=\gcd{360,84}$ as follows:
+\[
+360 = 84 \cdot 4 + 24
+\]
+\[
+84 = 24 \cdot 3 + 12
+\]
+\[
+24 = 12 \cdot 2 + 0
+\]
+Thus, $\gcd(360,84) = 12$.
+\\Now let us rearrange each of the lines above (except for the last one which we dont need) so that the remainders are on the left hand side of the equals sign, and everything else is on the right hand side, with the quotients enclosed in the round parentheses:
+\[
+24 = 360 + 84 \cdot (-4)
+\]
+\[
+12 = 84 + 24 \cdot (-3)
+\]
+Notice that the first equation above contains 360 and the second equations contains 84, and we want an equation in the form $360x + 84y$. working backwards, replace $24$ in the second equation with the first equation as follows:
+\[12 = 84 + (360 + 84 \cdot (-4)) \cdot (-3)\]
+\[= 84 + 360 \cdot (-3) + 84 \cdot 12\]
+\[= 360 \cdot (-3) + 84 \cdot 13\]
+Thus, $x=-3$ and $y=13$ and we have $360 \cdot (-3) + 84 \cdot 13 = \gcd{360,84} = 12$.
+
+\vspace{10mm}
+
+\noindent\textbf{Example 21:} bruh its just another one like example 20 just do it yourself if you want to know the numbers are $1205x + 37y = \gcd(1205,37)$.
+
+\newpage
+\subsection{Extended Euclidean Algorithm}
+In the previous examples we expressed $\gcd(a,b)$ in the form $ax+by$ by first executing the Euclidean algorithm and then working backwards to perform substituions to obtain the integers $x$ and $y$. The extended Euclidean algorithm can obtain $x$ and $y$ with a single forward pass of the algorithm.
+\\
+observe from Example 20 that each step $j$ of the algorithm (starting from $j=0$) performs the computation 
+$r_j = r_{j+1} \cdot q_{j+1} + r_{j+2}$. thus we can represent the steps of the algorithm in a tabular form as follows:
+
+
+\[
+\begin{array}{|c|c|c|c|c|}
+\hline
+j & r_j & r_{j+1} & q_{j+1} & r_{j+2} \\
+\hline
+0 & 360 & 84 & 4 & 24 \\
+1 & 84 & 24 & 3 & 12 \\
+2 & 24 & 12 & 2 & 0 \\
+\hline
+\end{array}
+\]
+The extended euclidean algorithm keeps track of two additional values \[s_j = s_{j-2} - q_{j-1} \cdot s_{j-1}\]
+and \[t_j = t_{j-2} - q_{j-1} \cdot t_{j-1}\]
+with the initial values fixed to $s_0 = 1, s_1 = 0, t_0 = 0, t_1 = 1$. After reaching the final step of $j$ of the Euclidean Algorithm, we must compute one final iteration of $s_{j+1}$ and $t_{j+1}$.
+The result is as follows:
+
+\[
+\begin{array}{|c|c|c|c|c|c|c|}
+\hline
+j & r_j & r_{j+1} & q_{j+1} & r_{j+2} & s_j & t_j \\
+\hline
+0 & 360 & 84 & 4 & 24 & 1 & 0 \\
+1 & 84 & 24 & 3 & 12 & 0 & 1 \\
+2 & 24 & 12 & 2 & 0 & 1-(4)(0) = 1 & 0-(4)(1) = -4 \\
+3 & 12 &  &  &  & 0-(3)(1) =-3 & 1-(3)(-4) = 13 \\
+\hline
+\end{array}
+\]
+Now, we take $x=s_3$ and $y=t_3$, which yields $\gcd{360,84} = 12 = (-3) \cdot 360 + (13) \cdot 84$.
+
+\subsection{Modular Arithmetic}
+We are accustomed to performing arithmetic on infinite sets of numbers like $\mathbb{Z}$ and $\mathbb{R}$. But sometimes we need to perform arithmetic on a finite set, and we need it to make sense and be consistent with normal arithmetic.
+\\ we will focus on the sets defined by $\mathbb{Z}_n = \{0,1,2,\dots,n-1\}$ for some integer $n \ge 2$.
+\\ $\mathbb{Z}_n$ is the set of remainders we can get when we divided integers by $n$. we call this number system the integers $\bmod{n}$.
+\\ one of the important features we want to build into our mathematical operations for finite sets is \boldmath{closure}: the property that when we apply an operation to two elements of the set, the result is also an element of the set.
+
+\newpage
+
+\noindent\textbf{Definition 22:} (Modular Addition and Multiplication)
+\\
+we will use the symbols $\oplus, \odot, \ominus, \text{ and } \oslash$ to denote addition mod n, multiplication mod n, subtraction mod n, and division mod n, respectively.
+\\
+\\
+let $n$ be a positive integer and let $a,b \in \mathbb{Z}_n$. then we define:
+\[a \oplus b = (a + b) \bmod n\]
+\[a \odot b = (a \cdot b) \bmod n\]
+\[a \ominus b = (a - b) \bmod n\]
+\[a \oslash b = (a \cdot b^{-1}) \bmod n\]
+where $b^{-1}$ is the multiplicative inverse of $b$ modulo $n$, if it exists.
+\\NOTE: because we end each calculation with the $\bmod n$ operation, the results of these operations are always in $\mathbb{Z}_n$.
+so we will have closure.
+
+\vspace{5mm}
+\noindent\textbf{Example 23:}
+\\ let $n=7$. we have the following:
+\[3 \oplus 6 = (3+6) \bmod 7 = 2\]
+\[3 \odot 6 = (3 \cdot 6) \bmod 7 = 4\]
+let $n=8$. we have the following:
+\[3 \oplus 6 = (3+6) \bmod 8 = 1\]
+\[3 \odot 6 = (3 \cdot 6) \bmod 8 = 2\]
+NOTE: that the symbols $\oplus$ and $\odot$ depend on the context. if we are working in $\mathbb{Z}_{10}$, then $5 \oplus 5 =0$, but if we are working in $\mathbb{Z}_{9}$, then $5 \oplus 5 =1$.
+
+\vspace{5mm}
+\noindent\textbf{Proposition 24:}(properties of modular addition and modular multiplication)
+\\ let $n$ be an integer with $n \ge 2$. the operations $\oplus$ and $\odot$ on $\mathbb{Z}_n$ have the following properties:
+    
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Associativity:} For all $a,b,c \in \mathbb{Z}_n$:
+    \[
+    (a \oplus b) \oplus c = a \oplus (b \oplus c)
+    \]
+    \[
+    (a \odot b) \odot c = a \odot (b \odot c)
+    \]
+    \item \textbf{Commutativity:} For all $a,b \in \mathbb{Z}_n$:
+    \[
+    a \oplus b = b \oplus a
+    \]
+    \[
+    a \odot b = b \odot a
+    \]
+    \item \textbf{Distributivity:} For all $a,b,c \in \mathbb{Z}_n$:
+    \[
+    a \odot (b \oplus c) = (a \odot b) \oplus (a \odot c)
+    \]
+    \item \textbf{identity element 0 for addition:} For all $a \in \mathbb{Z}_n$:
+    \[
+    a \oplus 0 = a
+    \]
+    \item \textbf{identity element 1 for multiplication:} For all $a \in \mathbb{Z}_n$:
+    \[
+    a \odot 1 = a
+    \]
+\end{enumerate}
+Let us prove the commutative property for addition:
+\begin{align*}
+a \oplus b &= (a + b) \bmod n \\
+&= (b + a) \bmod n \\
+&= b \oplus a
+\end{align*}
+
+
+\subsection{Modular substraction}
+In ordinary arithmetic, when we write $a-b=x$, we understand that this is equivalent to writing $a=b+x$. 
+\\similarly, to find the value of x in the equation $a \ominus b = x$, we can say that $x$ is an element of $\mathbb{Z}_n$ such that $a = b \oplus x$.
+\\this definition relies on the fact that there is exactly one $x \in \mathbb{Z}_n$ such that $a = b \oplus x$.
+
+\vspace{5mm}
+\noindent\textbf{Definition 25:} (modular subtraction )
+\\ let $n$ be a positive integer and $a,b \in \mathbb{Z}_n$. then we define: $a \ominus b$ to be the unique element $x \in \mathbb{Z}_n$ such that $a = b \oplus x$.
+\\ Altnernatively, we could have defined $a \ominus b$ to be $(a-b) \bmod n$.
+
+\vspace{5mm}
+\noindent\textbf{Proposition 26:} (modular subtraction)
+\\ let $n$ be a positive integer and $a,b \in \mathbb{Z}_n$. then:
+\[
+a \ominus b = (a-b) \bmod n
+\]
+proof:
+\\First we need to show that $(a-b) \bmod n \in \mathbb{Z}_n$. This is obvious from the defintiion of mod.
+\\ next, we show that if $x = (a-b) \bmod n$, then $a = b \oplus x$. so we take $ b \oplus x$ and substitute $x = (a-b) \bmod n =a-b+kn$. then:
+\begin{align*}
+b \oplus x &= (b + x) \bmod n \\
+&= (b + (a-b) \bmod n) \bmod n \\
+&= (b + a - b + kn) \bmod n \\
+&= (a + kn) \bmod n \\
+&= a \bmod n \\
+&= a
+\end{align*}
+
+\newpage
+\noindent\textbf{Example 27:}
+\\ we will compute $2 \ominus 3$ in two ways: using definition 25 and using proposition 26.
+ first lets look at the addition table below, which shows all the values of $a \oplus b$ for $a,b \in \mathbb{Z}_5$.
+\[
+\begin{array}{c|c|ccccc}
+   &   & \multicolumn{5}{c}{b} \\
+   & \oplus & 0 & 1 & 2 & 3 & 4 \\
+\hline
+\multirow{5}{*}{a} 
+ & 0 & 0 & 1 & 2 & 3 & 4 \\
+ & 1 & 1 & 2 & 3 & 4 & 0 \\
+ & 2 & 2 & 3 & 4 & 0 & 1 \\
+ & 3 & 3 & 4 & 0 & 1 & 2 \\
+ & 4 & 4 & 0 & 1 & 2 & 3 \\
+\end{array}
+\]
+
+by defintion 25, to find $x = 2 \ominus 3$, we must find the value $x$ that satisfies $ 2 = 3 \oplus x$. So in the table above, we look at the row for $a=3$ and step through each value until we find the column where thevalue is 2. we see that this happens when $x=4$.
+\\
+\\by propsition 26, we can compute $2 \ominus 3$ as follows:
+\begin{align*}
+2 \ominus 3 &= (2-3) \bmod 5 \\
+&= (-1) \bmod 5 \\
+&= 4
+\end{align*}
+
+
+\subsection{Modular Division}
+Modular division is significantly different from the other three modular operations.
+\\ when working with the rational numbers $mathbb{Q}$, when we write $x=a/b$, we understand that
+$x = a \cdot b^{-1}$, where $b^{-1}$ is $1/b$ and is referred to as the reciprocal or inverse of $b$. note that $b=0$ has no reciprocal, and for all other $b \in \mathbb{Q}$, we have that $b \cdot b^{-1} = 1$.
+\\\\
+Similarly, it seems reasonable that for modular division in $mathbb{Z}_n$, we should define 
+$b^{-1}$ as the element that satisfies $b \odot b^{-1} = 1$. however, not every element of $\mathbb{Z}_n$ has a multiplicative inverse.
+\\\\
+for example, consider the multiplcation table below, which shows all the values of $a \odot b$ for $\mathbb{Z}_{10}$.
+\[
+\begin{array}{c|c|cccccccccc}
+   &   & \multicolumn{10}{c}{b} \\
+   & \otimes & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+\hline
+\multirow{10}{*}{a}
+ & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ & 1 & 0 & \cellcolor{yellow}1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+ & 2 & 0 & 2 & 4 & 6 & 8 & 0 & 2 & 4 & 6 & 8 \\
+ & 3 & 0 & 3 & 6 & 9 & 2 & 5 & 8 & \cellcolor{yellow}1 & 4 & 7 \\
+ & 4 & 0 & 4 & 8 & 2 & 6 & 0 & 4 & 8 & 2 & 6 \\
+ & 5 & 0 & 5 & 0 & 5 & 0 & 5 & 0 & 5 & 0 & 5 \\
+ & 6 & 0 & 6 & 2 & 8 & 4 & 0 & 6 & 2 & 8 & 4 \\
+ & 7 & 0 & 7 & 4 & \cellcolor{yellow}1 & 8 & 5 & 2 & 9 & 6 & 3 \\
+ & 8 & 0 & 8 & 6 & 4 & 2 & 0 & 8 & 6 & 4 & 2 \\
+ & 9 & 0 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & \cellcolor{yellow}1 \\
+\end{array}
+\]
+
+in the table above, to find the reciprocal of an element $a$ in $\mathbb{Z}_{10}$, locate the element $b$ for which $a \odot b =1$.
+\\ all such occurrences in the table are highlighted in yellow.
+\\note that:
+\begin{itemize}
+    \item 0 has no reciprocal
+    \item 1 has a reciprocal of 1
+    \item 3 has a reciprocal of 7
+    \item 7 has a reciprocal of 3
+    \item 9 has a reciprocal of 9
+    \item the other elements (2,4,5,6,8) have no reciprocal
+\end{itemize}
+
+
+\vspace{5mm}
+\noindent\textbf{Definition 28:}(Modular recpiprocal)
+\\ let $n$ be a positive integer and let $a\in \mathbb{Z}_n$. 
+A reciprocal of $a$ is an element $b \in \mathbb{Z}_n$ such that $a \odot b = 1$.
+an element of $\mathbb{Z}_n$ that has a reciprocal is called invertible.
+\\Note: $a$ is only invertible if $\gcd(a,n) = 1$.
+
+\vspace{5mm}
+\noindent\textbf{Theorem 29:}(Invertible elements of $\mathbb{Z}_n$)
+\\ let $n$ be a positive integer and let $a \in \mathbb{Z}_n$. 
+Then $a$ is invertible if and only if $\gcd(a,n) = 1$.
+
+\vspace{5mm}
+\noindent\textbf{proposition 30:}
+\\ every element in $\mathbb{Z}_n$ except $0$ has is invertible if and only if $n$ is prime.
+\\proof:
+\\if $n$ is prime and $a \in {1,2,\dots,n-1}$, then the greatest common divisor of $n$ and $a$ is 1. so by theorem 29, $a^{-1}$ exists for all $a \in {1,2,\dots,n-1}$.
+
+
+\vspace{5mm}
+\noindent\textbf{Definition 31:}(Modular Division)
+\\ let $n$ be a positive integer and let $b$ be an invertible element of $\mathbb{Z}_n$. let $ a \in \mathbb{Z}_n$ be arbitrary. Then $ a \oslash b$ is defined to be $a \odot b^{-1}$.
+
+\vspace{5mm}
+\noindent\textbf{Example 32:}
+\\ in $\mathbb{Z}_{10}$, calculcate $8 \oslash 3$. Note that $3^{-1} = 7$.
+\begin{align*}
+8 \oslash 3 & = 8 \odot 3^{-1} \\
+& = 8 \odot 7 \\
+& = 56 \bmod 10 \\
+& = 6.
+\end{align*}
+
+\vspace{5mm}
+\noindent\textbf{Example 33:}
+\\ in $\mathbb{Z}_{10}$, calculcate $8 \oslash 2$. Note that $2$ is not invertible so $8 \oslash 2$ is not defined.
+
+\vspace{5mm}
+\noindent\textbf{Example 34:}
+\\ in $\mathbb{Z}_{1205}$, find $37^{-1}$.
+\\first we verify that 1205 and 37 are relatively prime by using the Euclidean Algorithm:
+\begin{align*}
+1205 \bmod 37 &= 18 \quad(37\cdot 32 = 1184,\ 1205-1184=21), \\   
+37 \bmod 18 &= 1, \\
+18 \bmod 1 &= 0.
+\end{align*}
+so, $\gcd(1205,37) = 1 = 37(228) +1205(-7)$ and 37 is invertible in $\mathbb{Z}_{1205}$.
+\\now we wewrite the above equation by applying mod1205 on both sides:
+\begin{align*}
+37(228) +1205(-7) &\equiv 1 \pmod{1205} \\
+37(228) &\equiv 1 \pmod{1205} \\
+\end{align*}
+thus, $37^{-1} \equiv 228 \pmod{1205}$.
+\\\\
+there is 2 more examples but sorry its 4am if you are reading this though send me a message which is just a photo of a frog
+
+\subsection{Chinese remainder Theorem}
+suppose we have a box of bananas, we know that:
+\begin{itemize}
+    \item if we distribute the bananas among 5 monkeys, we would have 1 left over
+    \item if we distribute the bananas among 7 monkeys, we would have 2 left over
+    \item there are less than 35 bananas in the box
+\end{itemize}
+How can we determine the number of bananas that are in the box? to do so we can write the following equations, where $x$ denotes the number of bananas in the box:
+\[ x = 5k + 1 \quad \text{for some integer } k \]
+\[ x = 7l + 2 \quad \text{for some integer } l \]
+in other words we have:
+\[ x \equiv 1 \pmod{5} \]
+\[ x \equiv 2 \pmod{7} \]
+we need to find $x$. So, let us substitute the firste equation into the second as follows:
+\begin{align*}
+    1+5k &\equiv 2 \pmod{7} \\
+    5k &\equiv 1 \pmod{7} \\
+    k &\equiv 5^{-1} \pmod{7} \\
+    k &\equiv 3 \pmod{7} \quad (\text{since } 5 \cdot 3 \equiv 1 \pmod{7}) \\
+\end{align*}
+this means that $k=3+7t$ for some non negative integer $t$. Now we substite our equation for $K$ into the first equation $x=1+5k$:
+\begin{align*}
+    x &= 1 + 5(3+7t) \\
+    &= 16 + 35t
+\end{align*}
+notice for all $t>0$ we have $x >35$. But we know that we have less than 35 bananas in the box. so we know that $t=0$ and thus $x=16$, meaning that we have 16 bananas in the box.
+
+\vspace{5mm}
+\noindent\textbf{Theorem 37:}(Chinese Remainder Theorem)
+\\
+let $a,b,m,n$ be integers with $m>0$ and $n>0$. if $\gcd(m,n)=1$. there is a unique integer
+$x_0$ with $0 \le x_0 < mn$ such that:
+\[ x_0 \equiv a \pmod{m} \]
+\[ x_0 \equiv b \pmod{n} \]
+furthermore, every solution to these equations differs from $x_0$ by a multiple of $mn$.
+
+\vspace{5mm}
+\noindent\textbf{Theorem 38:}(Generalized Chinese Remainder Theorem)
+\\
+let $n_1,n_2, \dots ,n_m$ be positive and pairwise relatively prime integers.
+\\
+let $a_1,a_2,\dots,a_m$ be arbitrary integers.
+\\
+there is an integer $x_0$ that satisfies the system of congruences:
+\[ x \equiv a_1 \pmod{n_1} \]
+\[ x \equiv a_2 \pmod{n_2} \]
+\[ \vdots \]
+\[ x \equiv a_m \pmod{n_m} \]
+furthermore, every solution to this system of congruences differs from $x_0$ by a multiple of $N=n_1 n_2 \cdots n_m$
+
+\newpage
+\noindent\textbf{Example 39:}
+\\ solve the system of congruences:
+\[ x \equiv 1 \pmod{5} \]
+\[ x \equiv 2 \pmod{7} \]
+\[x \equiv 3 \pmod{6} \]
+note that from the start of this sedction, we found that $x=16+35t$ when solving for the first two congurences, now we substitute that result into the third congurence as follows:
+\[16 +35t \equiv 3 \pmod{6} \]
+from which we obtain:
+\[35t \equiv -13 \equiv 5 \pmod{6} \]
+since $35 \equiv 5 \pmod{6}$, we have:
+\[5t \equiv 5 \pmod{6} \]
+so:
+\[t \equiv 5 \cdot 5^{-1} \pmod{6} \]
+\[ t =equiv 1 \pmod{6} \]
+so we have $t=1+6s$ for some non negative integer $s$. Now we substitute $t=1+6s$ into $x=16+35t$ to obtain:
+\begin{align*}
+    x &= 16 + 35(1+6s) \\
+    &= 51 + 210s
+\end{align*}
+Note that $x$ is a solution to the three gonruences for any value of $s$, so we have infinitely many solutions. Also note that the term $210s$ tells us that we only have one solution less than 210, and  that each solution to the euqaiton differs from the next by a multiple of 210, and $210=5 \cdot 7 \cdot 6$ which is the product of the moduli.
 
 \newpage
 \section{Recurrence Relations}
